@@ -1,0 +1,9 @@
+*.wav
+*.mp3
+*.mp4
+.venv
+venv
+.idea
+__pycache__
+tts_models
+lecture_data
