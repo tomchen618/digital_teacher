@@ -1,0 +1,21 @@
+clickhouse_orm==2.2.0
+moviepy~=1.0.3
+opencv-python-headless
+torchvision~=0.17.0
+numpy~=1.22.0
+pillow~=10.2.0
+pydantic~=2.6.0
+fitz~=0.0.1.dev2
+configparser~=6.0.0
+fastapi~=0.108.0
+pypinyin~=0.50.0
+hmmlearn~=0.3.0
+imgkit~=1.2.3
+av~=11.0.0
+pydub~=0.25.1
+torch~=2.2.0
+matplotlib~=3.8.2
+TTS~=0.22.0
+# install espeak-ng in widnows and move it to the espeak-ng.exe and dll files to
+# venv/Scripts folder
+espeakng
