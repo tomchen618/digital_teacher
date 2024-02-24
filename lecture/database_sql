@@ -1,0 +1,90 @@
+#
+use digital_teacher
+;
+#系统表
+CREATE TABLE system_info(`id` int,`system` String,`version` String,`encrypt_mode` String,`key` String,`updated` DateTime)
+ENGINE = MergeTree
+PARTITION BY toYYYYMM(updated)
+ORDER BY id
+#
+Insert into system_info(id,system,version,encrypt_mode, key, updated) values (0,'digital teacher','1.0','aes-256-ofb', '71352557663428117135255766342811','2024-01-16')
+# 关键字值表
+CREATE TABLE table_id
+(
+    `Id` int,
+    `Table` String,
+    `TableId` int,
+    `Updated` DateTime
+)
+ENGINE = MergeTree
+PARTITION BY toYYYYMM(Updated)
+ORDER BY Id
+;
+#insert a test line for table_id
+Insert into table_id(Id,Table,TableId,Updated) values(0,'Table_id',0,'2024-01-16');
+# 数据库关键字索引表
+CREATE TABLE com_user(`id` int,`user_name` String,`password` String,`created` DateTime,`updated` DateTime)
+ENGINE = MergeTree
+PARTITION BY toYYYYMM(updated)
+ORDER BY id
+# 初始化 admin 密码 brcs2024
+Insert into com_user (id,user_name,password,updated)
+Select 0,'admin',encrypt('aes-256-ofb','brcs2024',key),'2024-01-16'
+From system_info;
+# check password is correct input
+select decrypt('aes-256-ofb',password,key) as p from system_info s1, com_user c1 where s1.id=0 and c1.id=0;
+# 专业表
+CREATE TABLE t_speciality
+(
+`id` int,
+`name` String,
+`country` String,
+`created` DateTime,
+    `updated` DateTime
+)
+ENGINE = MergeTree
+PARTITION BY toYYYYMM(updated)
+ORDER BY id
+#
+insert into t_speciality(id, name,country, created, updated) values (1, '中文教学','zn', '2024-02-18','2024-02-18')
+;
+insert into t_speciality(id, name,country, created, updated) values (2, '数学教学','zn', '2024-02-18','2024-02-18')
+;
+insert into t_speciality(id, name,country, created, updated) values (3, '英文教学','zn', '2024-02-18','2024-02-18')
+;
+insert into t_speciality(id, name,country, created, updated) values (4, '计算机教学','zn', '2024-02-18','2024-02-18')
+;
+insert into t_speciality(id, name,country, created, updated) values (5, '科学教学','zn', '2024-02-18','2024-02-18')
+;
+# 学科表
+CREATE TABLE t_subject
+(
+`id` int,
+`name` String,
+`speciality_id` int,
+`created` DateTime,
+    `updated` DateTime
+)
+ENGINE = MergeTree
+PARTITION BY toYYYYMM(updated)
+ORDER BY id
+# 教师账户表
+CREATE TABLE t_teachers
+(
+    `id` int,
+    `first_name` String,
+`last name` String,
+`country` String,
+`grade` int,
+    `speciality_id` int,
+`account_confirmed` int,
+`birth_date` DateTime,
+`created` DateTime,
+    `updated` DateTime
+)
+ENGINE = MergeTree
+PARTITION BY toYYYYMM(updated)
+ORDER BY id
+;
+#
+
